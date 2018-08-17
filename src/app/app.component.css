@@ -1,0 +1,16 @@
+
+.container{
+    display: flex;
+    padding : 0.5rem 2.5rem;
+    justify-content : space-around;
+
+}
+.content{
+    width: 75%;
+    
+}
+.sidebar{
+    width: 20%;
+    background: red;
+    height: 100rem;
+}

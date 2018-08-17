@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    font-family: 'Roboto Slab', serif;
+    font-size: 15px;
+    color: #72808e;
+    overflow-x: hidden;
+}
+.author span{
+    color: #3fa9f5;
+    cursor: pointer;
+}
+.author h3{
+    margin-top: 0;
+    margin-bottom: 0.3rem;
+}
+.fr-element.fr-view{
+    height: 300px;
+}

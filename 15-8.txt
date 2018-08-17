@@ -1,0 +1,3 @@
+npm install angular2-froala-wysiwyg --save
+npm i angular-bootstrap-md --save 
+

@@ -1,0 +1,32 @@
+.post{
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    color : #394956;
+    margin-bottom: 3rem;
+    border: 1px solid #dbdbdb;
+}
+.img{
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+.img img{
+    width: 100%;
+    max-height: 12rem;
+}
+.title{
+    font-family: 'Roboto Slab', serif;
+    color: #333333;
+}
+.post h2{  
+    font-weight: 400;
+    font-size: 1.65rem;
+    letter-spacing: 0px;
+    font-style: normal;
+    margin-bottom: 0;
+}
+
+.sort_content{
+    text-align: left;
+    padding: 0.5rem;
+}

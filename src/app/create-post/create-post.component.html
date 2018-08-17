@@ -1,0 +1,5 @@
+<form [formGroup]="post" (ngSubmit)="onSubmit()">
+    <textarea class="input-title" placeholder="Điền tiêu đề ở đây nha ^^"  formControlName="title"></textarea>
+    <textarea [froalaEditor] formControlName="content" ></textarea>
+    <button type="submit">Submit</button>
+</form>

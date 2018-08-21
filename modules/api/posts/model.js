@@ -5,6 +5,7 @@ const postModel = new Schema(
   {
     img: { type: String, required: true },
     title: { type: String, required: true },
+    type: { type: String, required: true },
     content: { type: String, default: "" },
     createdBy: { type: String, required: true },
     view: { type: Number, default: 0 },
@@ -14,4 +15,4 @@ const postModel = new Schema(
   { timestamps: { createdAt: "createdAt" } }
 );
 
-module.exports = mongoose.model("images", postModel);
+module.exports = mongoose.model("posts", postModel);

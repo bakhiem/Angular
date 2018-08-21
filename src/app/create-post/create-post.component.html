@@ -1,5 +1,24 @@
+
+
+<div>
+    <tabset>
+        <tab heading="View" id="tab1">View</tab>
+        <tab heading="Edit">Edit</tab>
+        <tab heading="Delete">Delete</tab>
+    </tabset>
+</div>
+       
+
+
+<div *ngIf="message.type == 'error'">{{message.msg}}</div>
+<div *ngIf="message.type == 'success'">{{message.msg}}</div>
 <form [formGroup]="post" (ngSubmit)="onSubmit()">
+    
     <textarea class="input-title" placeholder="Điền tiêu đề ở đây nha ^^"  formControlName="title"></textarea>
-    <textarea [froalaEditor] formControlName="content" ></textarea>
+    <textarea class="input-title" placeholder="Còn đây là trích dẫn ngắn nè ^^"  formControlName="sortContent"></textarea>
+    <select formControlName="type">
+            <option [value]="type.type" *ngFor="let type of types">{{type.value}}</option>
+    </select>
+    <editor apiKey="8ez3rfdp6zoy4ozrvc46ontqfuquce5b755lg74ssg3653zr" [init]="{plugins: 'link'}" formControlName="content"></editor>
     <button type="submit">Submit</button>
 </form>

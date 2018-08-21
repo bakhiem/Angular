@@ -1,13 +1,23 @@
-
-<div >
-    <div class="post" *ngFor="let post of posts" >
-            <div class="img"><img [src]="post.img" alt=""></div>
-            
-            <h2  class="title" routerLink="/detail/{{post.id}}">{{post.title}}</h2>
-            <div class="author" ><h3>By <span routerLink="/author/{{post.createdBy}}" >{{post.createdBy}}</span></h3></div>
-            <div class="sort_content">
-                {{post.sortContent}}
-            </div>    
+<div>
+  <div class="post" *ngFor="let post of posts">
+    <div class="img">
+      <img src="https://picsum.photos/380/285/?random" alt="">
     </div>
-</div>
+    <div class="content">
+      <h2 class="title" routerLink="/detail/{{post.id}}">{{post.title}}</h2>
+      <div class="author"> By
+          <span routerLink="/author/{{post.createdBy}}">{{post.createdBy}}</span> 
+      </div>
+      <div class="time"> 
+            <span >{{post.createdAt}}</span> 
+        </div>
+        <div class="view"> 
+                <span>{{post.view}}</span> 
+            </div>
+      <div class="sort_content">
+        {{post.sortContent}}
+      </div>
+    </div>
 
+  </div>
+</div>

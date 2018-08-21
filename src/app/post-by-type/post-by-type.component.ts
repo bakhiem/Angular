@@ -18,17 +18,17 @@ export class PostByTypeComponent implements OnInit {
     private service: PostService
   ) {}
   ngOnInit() {
-    this.posts = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>{
-        if(this.route.snapshot.paramMap.get('type') != null ){
-          return this.service.getPostByType(params.get('type'));
-        }
-        else if(this.route.snapshot.paramMap.get('author') != null){
-          return this.service.getPostByAuth(params.get('author'));
-        }
+  //   this.posts = this.route.paramMap.pipe(
+  //     switchMap((params: ParamMap) =>{
+  //       if(this.route.snapshot.paramMap.get('type') != null ){
+  //         return this.service.getPostByType(params.get('type'));
+  //       }
+  //       else if(this.route.snapshot.paramMap.get('author') != null){
+  //         return this.service.getPostByAuth(params.get('author'));
+  //       }
        
-      })
+  //     })
         
-    );
+  //   );
   }
 }

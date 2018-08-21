@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Post } from './post';
-import { POSTS } from './post-mock';
 import {  Observable,of } from 'rxjs';
 import { Http, Response, Headers } from '@angular/http';
 import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-
+import {dateFormat} from 'dateformat';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
@@ -24,9 +23,6 @@ export class PostService {
     .post(`${this.baseUrl}/`, undefined, {headers: this.getHeaders(),params:{post:JSON.stringify(post)}});
   }
   constructor(private http : Http) { }
-    getAllPost(): Observable<Post[]> {
-      return of(POSTS);
-    }
     getPost(id: string) : Observable<Response>{
       // let post = this.http
       //   .get(`${this.baseUrl}/${id}`, {headers: this.getHeaders()})
@@ -37,15 +33,20 @@ export class PostService {
        .get(`${this.baseUrl}/${id}`, {headers: this.getHeaders()});
     }
     getPostByType(type: String): Observable<Post[]> {
-      return of(POSTS.filter(post => post.type === type));
+      let posts = this.http
+        .get(`${this.baseUrl}/type/${type}`, {headers: this.getHeaders()})
+        .pipe(map(mapPosts));
+        console.log(posts)
+        return posts;
     }
-    getPostByAuth(author: String): Observable<Post[]> {
-      return of(POSTS.filter(post => post.createdBy == author));
-    }
+    // getPostByAuth(author: String): Observable<Post[]> {
+    //   return of(POSTS.filter(post => post.createdBy == author));
+    // }
     getAll(): Observable<Post[]>{
       let posts = this.http
         .get(`${this.baseUrl}`, {headers: this.getHeaders()})
         .pipe(map(mapPosts));
+        console.log(posts);
         return posts;
     }
     private getHeaders(){
@@ -59,14 +60,18 @@ function mapPosts(response:Response): Post[]{
 }
 
 function toPost(r:any): Post{
+  var dateFormat = require('dateformat');
   let post = <Post>({
    id: r._id,
    title: r.title,
-   type: r.type,
-   content: r.content,
+    type: r.type,
+    content: r.content,
    sortContent: r.sortContent,
    img : r.img,
-   createdBy : r.createdBy
+   createdBy : r.createdBy,
+   createdAt : dateFormat(r.createdAt, "dd-mm-yyyy , h:MM:ss "),
+   view : r.view
  });
+ console.log(post)
  return post;
 }

@@ -13,7 +13,10 @@ import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { CreatePostComponent } from './create-post/create-post.component';
  import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
 import { map, filter, switchMap } from 'rxjs/operators';
-import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+import{PostService } from './post.service';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { TabsModule } from 'ngx-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,16 +28,17 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
     CreatePostComponent
   ],
   imports: [
+    EditorModule,
     FormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpModule,
     ReactiveFormsModule,
-    FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot()
+    TooltipModule.forRoot(),
+    TabsModule.forRoot(),
   ],
 
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [PostService],
+  bootstrap: [AppComponent] 
 })
 export class AppModule { }

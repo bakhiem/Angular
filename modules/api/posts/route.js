@@ -13,11 +13,34 @@ router.get("/", (req, res) => {
       res.status(500).send(err);
     });
 });
+router.get("/type/:type", (req, res) => {
+  postController
+  .getPostByType(req.query.page || 1,req.params.type)
+  .then(posts =>{
+    res.send(posts)})
+  .catch(err => {
+    console.error(err);
+    res.status(500).send(err);
+  });
+});
 
 router.post("/", (req, res) => {
     let post = JSON.parse(req.query.post);
     postController
-      .createPost(post.title,post.content,post.createdBy,post.img,post.sortContent)
+      .createPost(post.title,post.content,post.type,post.createdBy,post.sortContent,post.img)
+      .then(result => {
+        res.send(result)
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).send(err);
+      });
+  });
+
+  router.put("/:id", (req, res) => {
+    let post = JSON.parse(req.query.post);
+    postController
+      .updatePost(post.title,post.content,post.type,post.img,post.sortContent)
       .then(result => {
         res.send(result)
       })

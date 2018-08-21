@@ -1,16 +1,15 @@
 
-.container{
-    display: flex;
-    padding : 0.5rem 2.5rem;
-    justify-content : space-around;
 
+.container-fluid.wrapper{
+    display: flex;
 }
 .content{
-    width: 75%;
-    
+    width: 67%;
+    margin-left: 12rem;
 }
 .sidebar{
     width: 20%;
+    height: 1000px;
     background: red;
-    height: 100rem;
 }
+

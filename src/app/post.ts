@@ -5,5 +5,6 @@ export class Post {
     content : string;
     sortContent : String;
     img : string;
-    createdBy : string
+    createdBy : string;
+    createdAt : Date;
   }

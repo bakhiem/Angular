@@ -1,26 +1,51 @@
 const postModel = require("./model");
 
-const createPost = (title, content,createdBy,img,sortContent ) =>
+const createPost = (title, content, type,createdBy, sortContent, img) =>
   new Promise((resolve, reject) => {
     postModel
       .create({
-        title, 
+        title,
         content,
+        type,
         createdBy,
-        img,
-        sortContent 
+        sortContent,
+        img
       })
-      .then(data => resolve({ id: data._id }))
+      .then(data => resolve({
+        id: data._id
+      }))
       .catch(err => reject(err));
   });
 
-  const getAllPosts = page =>
+const updatePost = (title, content, type, sortContent, img) =>
+  new Promise((resolve, reject) => {
+    postModel
+      .findOneAndUpdate({
+        active: true,
+        _id: id
+      }, {
+        title,
+        content,
+        type,
+        sortContent,
+        img
+
+      })
+      .then(data => resolve({
+        id: data._id
+      }))
+      .catch(err => reject(err));
+  });
+
+const getAllPosts = page =>
   new Promise((resolve, reject) => {
     postModel
       .find({
         active: true
       })
-      .sort({ createdAt: -1 })
+      .sort({
+        createdAt: -1
+      })
       .skip((page - 1) * 20)
       .limit(20)
       .select("_id img title sortContent createdBy createdAt view")
@@ -29,20 +54,44 @@ const createPost = (title, content,createdBy,img,sortContent ) =>
       .catch(err => reject(err));
   });
 
-  const getPost = id =>
+const getPostByType = (page, type) =>
   new Promise((resolve, reject) => {
     postModel
-      .findOne({
+      .find({
         active: true,
-        _id: id
+        type: type
       })
-      .select("_id img title content createdBy createdAt view") 
+      .sort({
+        createdAt: -1
+      })
+      .skip((page - 1) * 20)
+      .limit(20)
+      .select("_id img title sortContent createdBy createdAt view")
       .exec()
       .then(data => resolve(data))
       .catch(err => reject(err));
   });
-  module.exports = {
+
+const getPost = id =>
+  new Promise((resolve, reject) => {
+    postModel
+      .findOneAndUpdate({
+        active: true,
+        _id: id
+      }, {
+        $inc: {
+          view: 1
+        }
+      })
+      .select("_id img title content createdBy createdAt view")
+      .exec()
+      .then(data => resolve(data))
+      .catch(err => reject(err));
+  });
+module.exports = {
   createPost,
   getAllPosts,
-  getPost
+  getPost,
+  getPostByType,
+  updatePost
 };

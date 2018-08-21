@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
 import { map, filter, switchMap } from 'rxjs/operators';
-import {FormControl, FormGroup  } from '@angular/forms';
+import {FormControl, FormGroup, FormBuilder  } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { Post }  from '../post';
 import { PostService }  from '../post.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-post',
@@ -17,29 +18,49 @@ export class CreatePostComponent implements OnInit {
   post = new FormGroup({
     title: new FormControl(''),
     content: new FormControl(''),
+    sortContent: new FormControl(''),
+    type: new FormControl(''),
   });
-  constructor(private postService: PostService,) { }
+  types = [{type : 'life', value : 'Chuyện đời sống'},
+          {type : 'work', value : 'Chuyện đi làm'},
+          {type : 'book', value : 'Review sách'}
+]
+  message = {type : "",msg : null};
 
-  ngOnInit() {
-  }
+  constructor(private postService: PostService,
+    private router : Router,
+    private fb: FormBuilder
+  ) { }
+  ngOnInit() {  
+   }
   onSubmit(){
     this.postService
     .addPost(toPost(this.post.value))
     .subscribe(
-      (r) => {console.log(r);}
+      (res) => {
+        this.message.type = "success";
+        this.message.msg = "Lưu thành công";
+        let r = JSON.parse(res['_body'])
+        let id = r.id
+        setTimeout(() => { this.router.navigate(['/detail',id])  }, 1000);
+        
+      },
+      err => {
+        console.log(err);
+        this.message.type = "error";
+        this.message.msg = "Lỗi khi lưu bài viết";
+      }
     );
   }
 }
 function toPost(r:any): Post{
   let post = <Post>({
-   id: "abcae",
    title: r.title,
-   type: "life",
    content: r.content,
-   sortContent: "No content",
+   type: r.type,
+   sortContent: r.sortContent,
    img : "ahihi",
    createdBy : "KhiemNB"
  });
- console.log('Parsed post:', post);
  return post;
 }

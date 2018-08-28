@@ -1,6 +1,5 @@
-console.log("ahihi")
-document.addEventListener("DOMContentLoaded", function(event) { 
-    console.log("ahihi")
+
+document.addEventListener("DOMContentLoaded", function(event) {
     var cover = document.querySelector('.cover');
     var header = document.querySelector('.header');
 

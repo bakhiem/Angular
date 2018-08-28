@@ -5,7 +5,7 @@
     position: fixed;
     background: white; 
     width: 100%;
-    
+    z-index: 1;
     top: 0;
     transition: .6s;
 }
@@ -46,6 +46,7 @@
     cursor: pointer;
 }
 .header ul li a{
+    font-family: 'Roboto Slab', serif;
    text-decoration: none;
    color: #72808e;
    
@@ -58,7 +59,7 @@
 .cover{
     font-family: 'Pacifico', cursive;
     width: 100%;
-    margin-top: 4rem;
+    margin-top: 5rem;
     text-align: center;
     color: #585252; 
 }

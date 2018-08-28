@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { Post }  from '../post';
-import { PostService }  from '../post.service';
+import { PostService } from '../service/post.service';
 import { switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 @Component({

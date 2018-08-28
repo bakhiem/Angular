@@ -1,23 +1,48 @@
 <div>
-  <div class="post" *ngFor="let post of posts">
-    <div class="img">
+  <div class="post" *ngFor="let post of posts | async ">
+    <div class="img" routerLink="/detail/{{post.id}}">
       <img src="https://picsum.photos/380/285/?random" alt="">
+      <div class="img-hover">View Post <fa name="arrow-right"></fa> </div>
     </div>
     <div class="content">
+      <div *ngIf ="post.type" class="type" routerLink="/type/{{post.type}}" >{{post.type | uppercase}}</div>
       <h2 class="title" routerLink="/detail/{{post.id}}">{{post.title}}</h2>
-      <div class="author"> By
-          <span routerLink="/author/{{post.createdBy}}">{{post.createdBy}}</span> 
-      </div>
-      <div class="time"> 
-            <span >{{post.createdAt}}</span> 
+      <div class="more_info">
+        <div class="author"> By
+          <span routerLink="/author/{{post.createdBy}}">{{post.createdBy}}</span>
         </div>
-        <div class="view"> 
-                <span>{{post.view}}</span> 
-            </div>
+        <div class="time">
+          <span>{{post.createdAt}}</span>
+        </div>
+        <div class="view">
+          <span><fa name="eye"></fa>{{post.view}}</span>
+        </div>
+      </div>
+
       <div class="sort_content">
         {{post.sortContent}}
       </div>
     </div>
 
   </div>
+  
 </div>
+<nav class="page">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li class="page-item disabled" ><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>

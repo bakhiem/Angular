@@ -3,9 +3,10 @@ const router = express.Router();
 
 const postController = require("./controller");
 
-router.get("/", (req, res) => {
+const authMiddleware = require('../auth/auth');
+router.get("/:page", (req, res) => {
     postController
-    .getAllPosts(req.query.page || 1)
+    .getAllPosts(req.params.page || 1)
     .then(posts =>{
       res.send(posts)})
     .catch(err => {
@@ -13,9 +14,69 @@ router.get("/", (req, res) => {
       res.status(500).send(err);
     });
 });
-router.get("/type/:type", (req, res) => {
+
+router.get("/count", (req, res) => {
   postController
-  .getPostByType(req.query.page || 1,req.params.type)
+  .count()
+  .then(response =>{
+    console.log(response);
+    let count = {
+      totalPage : response
+    };
+    res.send(count);
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).send(err);
+  });
+});
+
+router.get("/countType/:type", (req, res) => {
+  postController
+  .countType(req.params.type)
+  .then(response =>{
+    let count = {
+      totalPage : response
+    };
+    res.send(count);
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).send(err);
+  });
+});
+
+router.get("/countAuth/:auth", (req, res) => {
+  postController
+  .countAuth(req.params.auth)
+  .then(response =>{
+    let count = {
+      totalPage : response
+    };
+    res.send(count);
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).send(err);
+  });
+});
+
+
+router.get("/type/:type/:page", (req, res) => {
+  postController
+  .getPostByType(req.params.page || 1,req.params.type)
+  .then(posts =>{
+    res.send(posts)
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).send(err);
+  });
+});
+
+router.get("/author/:author/:page", (req, res) => {
+  postController
+  .getPostByAuth(req.params.page || 1,req.params.author)
   .then(posts =>{
     res.send(posts)})
   .catch(err => {
@@ -24,8 +85,11 @@ router.get("/type/:type", (req, res) => {
   });
 });
 
-router.post("/", (req, res) => {
+router.post("/",authMiddleware.authorize, (req, res) => {
+
     let post = JSON.parse(req.query.post);
+   // let post = req.body;
+    post.createdBy = req.session.userInfo.username;
     postController
       .createPost(post.title,post.content,post.type,post.createdBy,post.sortContent,post.img)
       .then(result => {
@@ -37,7 +101,7 @@ router.post("/", (req, res) => {
       });
   });
 
-  router.put("/:id", (req, res) => {
+  router.put("/:id",authMiddleware.authorize, (req, res) => {
     let post = JSON.parse(req.query.post);
     postController
       .updatePost(post.title,post.content,post.type,post.img,post.sortContent)

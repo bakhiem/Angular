@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 body{
-    font-family: 'Roboto Slab', serif;
+    font-family: monospace,sans-serif;
     font-size: 15px;
     color: #72808e;
     overflow-x: hidden;

@@ -46,13 +46,51 @@ const getAllPosts = page =>
       .sort({
         createdAt: -1
       })
-      .skip((page - 1) * 20)
-      .limit(20)
-      .select("_id img title sortContent createdBy createdAt view")
+      .skip((page - 1) * 5)
+      .limit(5)
+      .select("_id img title sortContent createdBy createdAt view type")
       .exec()
       .then(data => resolve(data))
       .catch(err => reject(err));
   });
+
+  const count = function () {
+    return new Promise((resolve, reject) => {
+      postModel
+        .countDocuments({
+          active: true
+        })
+        .exec()
+        .then(data => resolve(data))
+        .catch(err => reject(err));
+    });
+  }
+  
+  const countType = function (type) {
+    return new Promise((resolve, reject) => {
+      postModel
+        .countDocuments({
+          active: true,
+          type : type
+        })
+        .exec()
+        .then(data => resolve(data))
+        .catch(err => reject(err));
+    });
+  }
+
+  const countAuth = function (auth) {
+    return new Promise((resolve, reject) => {
+      postModel
+        .countDocuments({
+          active: true,
+          createdBy : auth
+        })
+        .exec()
+        .then(data => resolve(data))
+        .catch(err => reject(err));
+    });
+  }
 
 const getPostByType = (page, type) =>
   new Promise((resolve, reject) => {
@@ -64,8 +102,26 @@ const getPostByType = (page, type) =>
       .sort({
         createdAt: -1
       })
-      .skip((page - 1) * 20)
-      .limit(20)
+      .skip((page - 1) * 5)
+      .limit(5)
+      .select("_id img title sortContent createdBy createdAt view")
+      .exec()
+      .then(data => resolve(data))
+      .catch(err => reject(err));
+  });
+
+  const getPostByAuth = (page, auth) =>
+  new Promise((resolve, reject) => {
+    postModel
+      .find({
+        active: true,
+        createdBy: auth
+      })
+      .sort({
+        createdAt: -1
+      })
+      .skip((page - 1) * 5)
+      .limit(5)
       .select("_id img title sortContent createdBy createdAt view")
       .exec()
       .then(data => resolve(data))
@@ -93,5 +149,9 @@ module.exports = {
   getAllPosts,
   getPost,
   getPostByType,
-  updatePost
+  updatePost,
+  getPostByAuth,
+  count,
+  countType,
+  countAuth
 };

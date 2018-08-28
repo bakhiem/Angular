@@ -4,7 +4,7 @@ import { map, filter, switchMap } from 'rxjs/operators';
 import {FormControl, FormGroup, FormBuilder  } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { Post }  from '../post';
-import { PostService }  from '../post.service';
+import { PostService } from '../service/post.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -59,8 +59,7 @@ function toPost(r:any): Post{
    content: r.content,
    type: r.type,
    sortContent: r.sortContent,
-   img : "ahihi",
-   createdBy : "KhiemNB"
+   img : "ahihi"
  });
  return post;
 }

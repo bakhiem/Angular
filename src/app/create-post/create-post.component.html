@@ -1,15 +1,3 @@
-
-
-<div>
-    <tabset>
-        <tab heading="View" id="tab1">View</tab>
-        <tab heading="Edit">Edit</tab>
-        <tab heading="Delete">Delete</tab>
-    </tabset>
-</div>
-       
-
-
 <div *ngIf="message.type == 'error'">{{message.msg}}</div>
 <div *ngIf="message.type == 'success'">{{message.msg}}</div>
 <form [formGroup]="post" (ngSubmit)="onSubmit()">

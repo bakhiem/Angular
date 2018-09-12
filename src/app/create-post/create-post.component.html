@@ -1,12 +1,24 @@
-<div *ngIf="message.type == 'error'">{{message.msg}}</div>
-<div *ngIf="message.type == 'success'">{{message.msg}}</div>
+<div *ngIf="message.type == 'error'" class="alert alert-danger">{{message.msg}}</div>
+<div *ngIf="message.type == 'success'" class="alert alert-success">{{message.msg}}</div>
+
+
 <form [formGroup]="post" (ngSubmit)="onSubmit()">
-    
-    <textarea class="input-title" placeholder="Điền tiêu đề ở đây nha ^^"  formControlName="title"></textarea>
-    <textarea class="input-title" placeholder="Còn đây là trích dẫn ngắn nè ^^"  formControlName="sortContent"></textarea>
-    <select formControlName="type">
-            <option [value]="type.type" *ngFor="let type of types">{{type.value}}</option>
-    </select>
-    <editor apiKey="8ez3rfdp6zoy4ozrvc46ontqfuquce5b755lg74ssg3653zr" [init]="{plugins: 'link'}" formControlName="content"></editor>
-    <button type="submit">Submit</button>
+        <div class="form-group">
+            <textarea class="form-control"  placeholder="Điền tiêu đề ở đây nha ^^ "  formControlName="title" rows="3"></textarea>
+            <small class="form-text text-muted">Tiêu đề ngắn gọn dễ hiểu thui nha...</small>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control"  placeholder="Còn đây là trích dẫn ngắn nè ^^ "  formControlName="sortContent" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+                <textarea class="form-control"  placeholder="Ảnh cho bài viết ^^ "  formControlName="image" rows="1"></textarea>
+        </div>
+        <div class="form-group">
+                <label for="exampleFormControlSelect1">Loại bài viết</label>
+                <select class="form-control" id="exampleFormControlSelect1" formControlName="type">
+                    <option [value]="type.type" *ngFor="let type of types">{{type.value}}</option>
+                </select>
+        </div>
+        <app-ngx-editor  height="700px" minHeight="150px" [placeholder]="'Nội dung bài viết'" formControlName="content"></app-ngx-editor>
+        <button type="submit" class="btn btn-outline-secondary">Lưu bài viết</button>
 </form>

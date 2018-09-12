@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 body{
     font-family: monospace,sans-serif;
-    font-size: 15px;
+    font-size: 16px;
     color: #72808e;
     overflow-x: hidden;
+    background-color: rgba(227,227,227,1);
 }
 .author span{
     color: #3fa9f5;
@@ -15,4 +16,10 @@ body{
 }
 .fr-element.fr-view{
     height: 300px;
+}
+footer{
+    background: #162a33;
+}
+.wrapper{
+    margin-bottom: 1rem;
 }

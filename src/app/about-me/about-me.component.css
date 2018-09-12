@@ -1,0 +1,28 @@
+ 
+.aboutme img{
+    max-width: 26rem;
+    max-height: 30rem; 
+}
+.aboutme{
+    width: 100%;
+    display: flex;
+    color: #2E2B00;
+    
+}
+
+.aboutme .content .title{
+    text-align: center;
+}
+.aboutme .content{
+    padding: 4rem 4rem;
+    width: 60%;
+    margin: 0 auto;
+    background: white;
+
+}
+.cover{
+    display: none;
+}
+.img-me{
+    float: right;
+}

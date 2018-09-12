@@ -1,0 +1,15 @@
+<div class='navbar'> 
+  <div class="highlight-text">
+    Bài viết nổi bật
+  </div>
+  <div class="post" *ngFor="let post of posts | async ">
+      <div class="img" routerLink="/detail/{{post.id}}">
+        <img src="../../assets/img/img.jpg" alt="">
+      </div>
+    <div class="content">
+      <h4 class="title" routerLink="/detail/{{post.id}}">{{post.title}}</h4>
+    </div>
+
+  </div>
+
+</div>

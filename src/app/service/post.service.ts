@@ -58,10 +58,18 @@ export class PostService {
     }
     getAll(page : number): Observable<Post[]>{
       let posts = this.http
-        .get(`${this.baseUrl}/${page}`, {headers: this.getHeaders()})
+        .get(`${this.baseUrl}/posts/${page}`, {headers: this.getHeaders()})
         .pipe(map(mapPosts));
         return posts;
     }
+
+    getPostHighLight(): Observable<Post[]>{
+      let posts = this.http
+        .get(`${this.baseUrl}/highlight`, {headers: this.getHeaders()})
+        .pipe(map(mapPosts));
+        return posts;
+    }
+
     private getHeaders(){
       let headers = new Headers();
       headers.append('Accept', 'application/json');

@@ -53,7 +53,22 @@ const getAllPosts = page =>
       .then(data => resolve(data))
       .catch(err => reject(err));
   });
-
+  const getPostHighlight = () =>
+  new Promise((resolve, reject) => {
+    postModel
+      .find({
+        active: true,
+        highLight : true
+      })
+      .sort({
+        createdAt: -1
+      })
+      .limit(4)
+      .select("_id title sortContent createdBy createdAt type")
+      .exec()
+      .then(data => resolve(data))
+      .catch(err => reject(err));
+  });
   const count = function () {
     return new Promise((resolve, reject) => {
       postModel
@@ -153,5 +168,6 @@ module.exports = {
   getPostByAuth,
   count,
   countType,
-  countAuth
+  countAuth,
+  getPostHighlight
 };

@@ -176,3 +176,6 @@ a.page-link.disabled{
 .post-view-comment fa {
     margin-right: 5px;
 }
+.go-home{
+    cursor: pointer;
+}

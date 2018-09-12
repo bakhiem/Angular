@@ -16,8 +16,8 @@ export class PostsComponent implements OnInit {
   perPage : number = 5;//config in this and mongodb :)
   currentPage : number = 1;
   totalPage : number ;
-  xxx : Observable<any>;
   posts : Observable<Post[]> ;
+  pageNumbers : number[] = [];
   
   constructor(
     private postService : PostService,
@@ -29,62 +29,38 @@ export class PostsComponent implements OnInit {
     this.getPost();
   }
   getTotalPage() : void{
-    if(this.route.snapshot.paramMap.get('type') != null ){
-      this.postService.getTotalPageType(this.route.snapshot.paramMap.get('type')).subscribe(res => {
-        this.totalPage = JSON.parse(res['_body']).totalPage;
-        console.log(this.totalPage);
-      });
-    }
-    else if(this.route.snapshot.paramMap.get('author') != null ){
-      this.xxx  = this.route.paramMap.pipe(
-        switchMap((params: ParamMap) =>{
-           this.postService.getTotalPageAuth(params.get('author')).subscribe(res => {
-            console.log(res)
-            //this.totalPage = JSON.parse(res['_body']).totalPage;
-            //console.log(this.totalPage);
-          });
-          console.log('ahihi');
-           return this.postService.getTotalPageAuth(params.get('author'));
-            }
-         )
-      )
-      // this.postService.getTotalPageAuth(this.route.snapshot.paramMap.get('author')).subscribe(res => {
-      //   this.totalPage = JSON.parse(res['_body']).totalPage;
-      //   console.log(this.totalPage);
-      // });
-    }
-    else this.postService.getTotalPage().subscribe(res => {
-      console.log(res);
-      this.totalPage = JSON.parse(res['_body']).totalPage;
-      
-    });
-    
-     
+    this.postService.getTotalPage().subscribe(
+      (data : any) => {
+        let pages = (JSON.parse(data['_body']).totalPage)
+        this.totalPage = Math.ceil(pages / this.perPage) ;
+        this.toArray(this.totalPage);
+      }
+    )
   }
   getPost(): void {
-    //isType
-    if(this.route.snapshot.paramMap.get('type') != null ){
-      this.posts = this.route.paramMap.pipe(
-        switchMap((params: ParamMap) =>{
-            return this.postService.getPostByType(params.get('type'),this.currentPage);
-            }
-         )
-      )
-    }
-    //by author
-   else if(this.route.snapshot.paramMap.get('author') != null ){
-      this.posts = this.route.paramMap.pipe(
-        switchMap((params: ParamMap) =>{
-            return this.postService.getPostByAuth(params.get('author'),this.currentPage);
-            }
-         )
-      )
-    }
-    else{
-      this.posts = this.postService.getAll(this.currentPage);
-    }
-    
-    
-    
+      this.posts = this.postService.getAll(this.currentPage);  
   }
+  toArray = function(num : number) {
+    for(let i = 1; i <= num ; i++){
+      this.pageNumbers[i-1] = i;
+    }
+}
+
+goToPage(page: any) { // without type info
+  this.currentPage = page;
+  this.getPost();
+}
+prePage(){
+  if(this.currentPage > 1 ){
+    this.currentPage = this.currentPage - 1
+    this.getPost();
+  }
+}
+
+nextPage(){
+  if(this.currentPage < this.totalPage ){
+    this.currentPage = this.currentPage + 1;
+    this.getPost();
+  }
+}
 }

@@ -53,6 +53,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ extended: false }));
 
+
+
 app.use("/", postRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);

@@ -1,8 +1,5 @@
-.input-title{
-    font-family: 'Roboto Slab', serif;
-    width: 100%;
-    font-size: 1.05em;
-    padding: 16px;
-    box-sizing: border-box;
-    overflow-x: hidden;
+
+form{
+    color: black;
+    width: 97%;
 }

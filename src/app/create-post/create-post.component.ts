@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
 import { map, filter, switchMap } from 'rxjs/operators';
-import {FormControl, FormGroup, FormBuilder  } from '@angular/forms';
+import {FormControl, FormGroup, FormBuilder,FormsModule  } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { Post }  from '../post';
 import { PostService } from '../service/post.service';
@@ -19,6 +19,7 @@ export class CreatePostComponent implements OnInit {
     title: new FormControl(''),
     content: new FormControl(''),
     sortContent: new FormControl(''),
+    image: new FormControl(''),
     type: new FormControl(''),
   });
   types = [{type : 'life', value : 'Chuyện đời sống'},
@@ -59,7 +60,7 @@ function toPost(r:any): Post{
    content: r.content,
    type: r.type,
    sortContent: r.sortContent,
-   img : "ahihi"
+   img : (r.image.length > 0) ? r.image : "https://picsum.photos/380/285/?random",
  });
  return post;
 }

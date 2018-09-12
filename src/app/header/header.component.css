@@ -55,8 +55,17 @@
     color:hsl(355, 15%, 14%);
 }
 
-
 .cover{
+    margin-top: 4rem;
+    width: 100%;
+    height: 100%;
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center top;
+    height: 360px;
+}
+
+/*.cover{
     font-family: 'Pacifico', cursive;
     width: 100%;
     margin-top: 5rem;
@@ -70,3 +79,4 @@
 .cover span{
     font-size: 2rem;
 }
+*/

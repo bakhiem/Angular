@@ -1,10 +1,16 @@
+
+
+.wrapper{
+
+}
 .post{
-    width: 100%;
+    font-size: 1.1rem;
+    padding: 2rem;
+    width: 65%;
+    background: white;
     text-align: center;
-    display: inline-block;
-    color : #394956;
-    margin-bottom: 3rem;
-    border: 1px solid #dbdbdb;
+    color: #394956;
+    margin: 0 auto;
 }
 .img{
     text-align: center;
@@ -29,4 +35,14 @@
 .sort_content{
     text-align: left;
     padding: 0.5rem;
+}
+
+.wrapper{
+    display: flex;
+    justify-content: space-around;
+}
+
+.sidebar{
+    width: 20%;
+   
 }

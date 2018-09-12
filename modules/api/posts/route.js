@@ -4,7 +4,7 @@ const router = express.Router();
 const postController = require("./controller");
 
 const authMiddleware = require('../auth/auth');
-router.get("/:page", (req, res) => {
+router.get("/posts/:page", (req, res) => {
     postController
     .getAllPosts(req.params.page || 1)
     .then(posts =>{
@@ -15,11 +15,22 @@ router.get("/:page", (req, res) => {
     });
 });
 
+router.get("/highlight", (req, res) => {
+  postController
+  .getPostHighlight()
+  .then(posts =>{
+    res.send(posts)})
+  .catch(err => {
+    console.error(err);
+    res.status(500).send(err);
+  });
+});
+
+
 router.get("/count", (req, res) => {
   postController
   .count()
   .then(response =>{
-    console.log(response);
     let count = {
       totalPage : response
     };
@@ -78,6 +89,7 @@ router.get("/author/:author/:page", (req, res) => {
   postController
   .getPostByAuth(req.params.page || 1,req.params.author)
   .then(posts =>{
+    
     res.send(posts)})
   .catch(err => {
     console.error(err);

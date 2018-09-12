@@ -1,11 +1,19 @@
-<div>
+<div class="wrapper">
+<div class="allPost">
+  <div class="info">
+      <h3>Bài viết</h3>
+      <div class="md-form active-pink-2 mb-3" id="search">
+        <input class="form-control" type="text" placeholder="Tìm kiếm bài viết" aria-label="Search">
+    </div>
+    
+  </div>
+ 
   <div class="post" *ngFor="let post of posts | async ">
-    <div class="img" routerLink="/detail/{{post.id}}">
-      <img src="https://picsum.photos/380/285/?random" alt="">
+    <div class="img" routerLink="/detail/{{post.id}}"  [ngStyle]="{'background-image': 'url(' + post.img + ')'}">
       <div class="img-hover">View Post <fa name="arrow-right"></fa> </div>
     </div>
     <div class="content">
-      <div *ngIf ="post.type" class="type" routerLink="/type/{{post.type}}" >{{post.type | uppercase}}</div>
+      <!--<div *ngIf ="post.type" class="type" routerLink="/type/{{post.type}}" >{{post.type | uppercase}}</div>
       <h2 class="title" routerLink="/detail/{{post.id}}">{{post.title}}</h2>
       <div class="more_info">
         <div class="author"> By
@@ -20,29 +28,67 @@
       </div>
 
       <div class="sort_content">
-        {{post.sortContent}}
+        {{post.sortContent | maxLength: 30}}
+      </div>-->
+      <div>
+          <div class="post-header">
+              <div class="avarta">
+                <img src="../assets/img/me.jpg" alt="" >
+                <div class="time">
+                    <div routerLink="/author/{{post.createdBy}}" class="author">{{post.createdBy}}</div>
+                    <div>{{post.createdAt}}</div>
+                </div>
+              </div>
+              <div class="post-action">
+                  <i class="fas fa-ellipsis-h"><div class="post-info">
+                      <i class="far fa-share-square"></i> Chia sẻ bài viết
+                  </div></i>
+              </div>
+            </div>
+        <div class="post-content">
+          <h2 class="title" routerLink="/detail/{{post.id}}">{{post.title}}</h2>
+          <div class="sort_content">
+            {{post.sortContent | maxLength: 30}}
+          </div>
       </div>
+      </div>
+      
+      
+      
+
+      <div class="post-view-comment">
+        <div><fa name="eye"></fa>{{post.view}}</div>
+        <DIV><i class="far fa-heart"></i></DIV> 
+      </div>
+
+      
+
     </div>
+    
 
   </div>
+  <nav class="page">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" (click)="prePage()" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
   
+      <li class="page-item" *ngFor="let pageNumber of pageNumbers ">
+      <a *ngIf="pageNumber == currentPage,else inActive" class="page-link disabled " >{{pageNumber}}</a>
+      <ng-template #inActive><a class="page-link" (click)="goToPage(pageNumber)" >{{pageNumber}}</a></ng-template> 
+      </li>
+      
+      <li class="page-item">
+        <a class="page-link" (click)="nextPage()" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </div>
-<nav class="page">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>
-    <li class="page-item disabled" ><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+
+</div>

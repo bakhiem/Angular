@@ -8,6 +8,7 @@ const postModel = new Schema(
     type: { type: String, required: true },
     content: { type: String, default: "" },
     createdBy: { type: String, required: true },
+    highLight: { type: Boolean, default: true },
     view: { type: Number, default: 0 },
     sortContent: { type: String, default: "" },
     active: { type: Boolean, default: true }

@@ -1,13 +1,14 @@
 <ng-container *ngIf="post; else noPost">
   <div class="post" >
-          <div class="img"><img [src]="post.img" alt=""></div>
           <h2  class="title">{{post.title}}</h2>
           <div class="author"><h3>By <span routerLink="/author/{{post.createdBy}}">{{post.createdBy}}</span></h3></div>
           <div class="sort_content" [innerHTML] = "post.content">
           </div>    
   </div>
+ 
+
 </ng-container>
 <ng-template #noPost>
-  no post
+  Chắc bạn vào nhầm đường dẫn hoặc bài viết ko tồn tại, bạn quay lại trang chủ nhé ^^ 
 
 </ng-template>
